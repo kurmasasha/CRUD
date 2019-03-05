@@ -8,20 +8,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBService {
+public class DBServiceJDBC {
 
     private static String url = "jdbc:postgresql://localhost:5432/testdb";
     private static String user = "postgres";
     private static String password = "041014";
     private static String className = "org.postgresql.Driver";
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName(className).newInstance());
+            return DriverManager.getConnection(url, user, password);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return DriverManager.getConnection(url, user, password);
     }
 }
