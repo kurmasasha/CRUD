@@ -9,15 +9,15 @@ public class UserService {
 
     private UserDao userDao;
 
-    public UserService(UserDao userDao) {
+    public UserService(final UserDao userDao) {
         this.userDao = userDao;
     }
 
-    public void createNewUser(String firsName, String lastName) {
+    public void createNewUser(final String firsName, final String lastName) {
         userDao.createNewUser(firsName, lastName);
     }
 
-    public User findUserById(Integer id) {
+    public User findUserById(final Integer id) {
         return userDao.findUserById(id);
     }
 
@@ -30,11 +30,11 @@ public class UserService {
         }
     }
 
-    public void updateUser(Integer id, String firtName, String lastName) {
-        userDao.updateUser(id, firtName, lastName);
+    public void updateUser(final Integer id, final String firstName, final String lastName) {
+        userDao.updateUser(id, firstName, lastName);
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(final Integer id) {
         userDao.deleteUser(id);
     }
 }
