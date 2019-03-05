@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/users")
 public class Users extends HttpServlet {
 
-    UserService userService = new UserService(new UserDaoImplJDBC());
+    private UserService userService = new UserService(new UserDaoImplJDBC());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
