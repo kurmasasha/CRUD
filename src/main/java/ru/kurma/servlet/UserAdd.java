@@ -1,6 +1,5 @@
 package ru.kurma.servlet;
 
-import ru.kurma.dao.UserDao;
 import ru.kurma.dao.UserDaoImplJDBC;
 import ru.kurma.service.UserService;
 

@@ -1,10 +1,8 @@
 package ru.kurma.servlet;
 
-import ru.kurma.dao.UserDao;
 import ru.kurma.dao.UserDaoImplJDBC;
 import ru.kurma.model.User;
 import ru.kurma.service.UserService;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

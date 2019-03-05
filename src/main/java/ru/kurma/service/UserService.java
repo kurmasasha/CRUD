@@ -2,7 +2,6 @@ package ru.kurma.service;
 
 import ru.kurma.dao.UserDao;
 import ru.kurma.model.User;
-
 import java.sql.SQLException;
 import java.util.List;
 
