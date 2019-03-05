@@ -21,7 +21,7 @@
             <a href="/users">Омена</a>
         </td>
         <td style="text-align: center">
-            <a href="/delete?del=yiu">Удалить</a>
+            <a href="/delete?del=yiudfgdffg">Удалить</a>
         </td>
     </tr>
 </table>
