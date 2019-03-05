@@ -1,4 +1,4 @@
-package ru.kurma.service;
+package ru.kurma.util;
 
 
 import org.postgresql.Driver;

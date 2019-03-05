@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface UserDao {
 
-    List<User> findAll() throws SQLException;
-    User find(int id);
-    void create(String firstName, String lastName);
-    void update(int id, String firstName, String lastName);
-    void delete(int id);
+    List<User> findAllUsers() throws SQLException;
+    User findUserById(Integer id);
+    void createNewUser(String firstName, String lastName);
+    void updateUser(Integer id, String firstName, String lastName);
+    void deleteUser(Integer id);
 
 }

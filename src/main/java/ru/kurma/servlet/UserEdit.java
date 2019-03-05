@@ -1,8 +1,10 @@
 package ru.kurma.servlet;
 
 import ru.kurma.dao.UserDao;
-import ru.kurma.dao.UserDaoImpl;
+import ru.kurma.dao.UserDaoImplJDBC;
 import ru.kurma.model.User;
+import ru.kurma.service.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +16,14 @@ import java.io.IOException;
 @WebServlet("/edit")
 public class UserEdit extends HttpServlet {
 
-    UserDao userDao;
-    int findId;
+    private UserService userService = new UserService(new UserDaoImplJDBC());
+    private Integer findId;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userDao = new UserDaoImpl();
+
         findId = Integer.parseInt(request.getParameter("id"));
-        User user = userDao.find(findId);
+        User user = userService.findUserById(findId);
         request.setAttribute("user", user);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
@@ -33,7 +35,7 @@ public class UserEdit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firsName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-        userDao.update(findId, firsName, lastName);
+        userService.updateUser(findId, firsName, lastName);
 
         response.sendRedirect("/users");
     }
