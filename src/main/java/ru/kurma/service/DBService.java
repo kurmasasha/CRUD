@@ -15,8 +15,6 @@ public class DBService {
     private static String password = "041014";
     private static String className = "org.postgresql.Driver";
 
-    //private Statement statement;
-
     public static Connection getConnection() throws SQLException {
         try {
             DriverManager.registerDriver((Driver) Class.forName(className).newInstance());

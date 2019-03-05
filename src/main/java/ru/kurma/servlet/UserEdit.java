@@ -30,7 +30,7 @@ public class UserEdit extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firsName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
         userDao.update(findId, firsName, lastName);

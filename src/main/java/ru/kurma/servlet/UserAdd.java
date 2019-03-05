@@ -20,7 +20,7 @@ public class UserAdd extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
 

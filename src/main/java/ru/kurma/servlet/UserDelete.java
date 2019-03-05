@@ -3,7 +3,6 @@ package ru.kurma.servlet;
 import ru.kurma.dao.UserDao;
 import ru.kurma.dao.UserDaoImpl;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ public class UserDelete extends HttpServlet {
     int idDelete;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         userDao = new UserDaoImpl();
         idDelete = Integer.parseInt(request.getParameter("id"));
         userDao.delete(idDelete);
