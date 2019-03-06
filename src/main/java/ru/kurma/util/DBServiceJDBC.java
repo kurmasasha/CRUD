@@ -2,14 +2,13 @@ package ru.kurma.util;
 
 
 import org.postgresql.Driver;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBServiceJDBC {
 
-    private static String url = "jdbc:postgresql://localhost:5432/testdb";
+    private static String url = "jdbc:postgresql://localhost:5432/postgres";
     private static String user = "postgres";
     private static String password = "041014";
     private static String className = "org.postgresql.Driver";

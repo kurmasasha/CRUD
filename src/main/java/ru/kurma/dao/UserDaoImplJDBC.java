@@ -18,7 +18,7 @@ public class UserDaoImplJDBC implements UserDao{
 
         User user = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM testdb.test.users WHERE id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM postgres.public.users WHERE id = ?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -27,8 +27,6 @@ public class UserDaoImplJDBC implements UserDao{
             String lastName = resultSet.getString("lastname");
             user = new User(firstName, lastName);
             user.setId(id);
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,7 +39,7 @@ public class UserDaoImplJDBC implements UserDao{
         List<User> users = new ArrayList<>();
         ResultSet resultSet = null;
         try {
-            resultSet = connection.createStatement().executeQuery("SELECT * FROM testdb.test.users");
+            resultSet = connection.createStatement().executeQuery("SELECT * FROM postgres.public.users");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +65,7 @@ public class UserDaoImplJDBC implements UserDao{
     public void createNewUser(String firstName, String lastName) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
-                    ("INSERT  INTO " + "testdb.test.users(firstname, lastname) VALUES (?,?)");
+                    ("INSERT  INTO " + "postgres.public.users(firstname, lastname) VALUES (?,?)");
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
             preparedStatement.execute();
@@ -83,7 +81,7 @@ public class UserDaoImplJDBC implements UserDao{
         User user = findUserById(id);
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE testdb.test.users SET " +
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE postgres.public.users SET " +
                     "firstName = ?, lastname = ? WHERE id = ?");
                     preparedStatement.setString(1, firstName);
                     preparedStatement.setString(2, lastName);
@@ -97,7 +95,7 @@ public class UserDaoImplJDBC implements UserDao{
     @Override
     public void deleteUser(Integer id) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM testdb.test.users WHERE id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM postgres.public.users WHERE id = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
