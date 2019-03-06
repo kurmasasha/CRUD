@@ -1,6 +1,8 @@
 package ru.kurma.dao;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import ru.kurma.model.User;
 import ru.kurma.util.DBServiceHibernate;
 
@@ -13,8 +15,11 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public List<User> findAllUsers() throws SQLException {
-        //List<User> users =
-        return null;
+        Session session = sessionFactory.openSession();
+        //session.createQuery("from users").list().forEach(System.out::println);
+        //List<User> list = (List<User>) query.list();
+
+        return session.createQuery("From User", User.class).list();
     }
 
     @Override

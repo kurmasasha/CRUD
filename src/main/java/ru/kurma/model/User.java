@@ -1,22 +1,31 @@
 package ru.kurma.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users", schema = "public")
 public class User {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @Column(name = "firstname")
     private String firstName;
+
+    @Column(name = "lastname")
     private String lastName;
-    private String password;
 
     public User() {
-
     }
 
-    public User(int id, String firstName, String lastName, String password) {
+    public User(String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
     }
+
 
     public int getId() {
         return id;
@@ -42,13 +51,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public String toString() {
@@ -56,7 +59,6 @@ public class User {
                 "id='" + id + '\'' +
                 "name='" + firstName + '\'' +
                 "login='" + lastName + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

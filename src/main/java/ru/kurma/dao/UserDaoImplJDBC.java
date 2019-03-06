@@ -25,7 +25,8 @@ public class UserDaoImplJDBC implements UserDao{
 
             String firstName = resultSet.getString("firstname");
             String lastName = resultSet.getString("lastname");
-            user = new User(id, firstName, lastName, "");
+            user = new User(firstName, lastName);
+            user.setId(id);
 
 
         } catch (SQLException e) {
@@ -50,7 +51,8 @@ public class UserDaoImplJDBC implements UserDao{
                 Integer id = resultSet.getInt("id");
                 String firstName = resultSet.getString("firstname");
                 String lastName = resultSet.getString("lastname");
-                User user = new User(id, firstName, lastName, "");
+                User user = new User(firstName, lastName);
+                user.setId(id);
                 users.add(user);
             }
             return users;
