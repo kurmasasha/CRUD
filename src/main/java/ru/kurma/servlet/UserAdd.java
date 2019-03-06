@@ -1,8 +1,6 @@
 package ru.kurma.servlet;
 
-import ru.kurma.dao.UserDaoImplJDBC;
 import ru.kurma.service.UserService;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +12,6 @@ import java.io.IOException;
 @WebServlet("/useradd")
 public class UserAdd extends HttpServlet {
 
-    private UserService userService = new UserService(new UserDaoImplJDBC());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,10 +24,8 @@ public class UserAdd extends HttpServlet {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
 
-        userService.createNewUser(firstName, lastName);
+        UserService.createNewUser(firstName, lastName);
 
         response.sendRedirect("/users");
-
-
     }
 }

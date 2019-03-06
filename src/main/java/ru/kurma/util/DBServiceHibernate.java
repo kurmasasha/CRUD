@@ -8,10 +8,10 @@ import ru.kurma.model.User;
 
 public class DBServiceHibernate {
 
-    Configuration configuration = new Configuration();
+    private static Configuration configuration = new Configuration();
 
 
-    private Configuration createConfiguration() {
+    private static Configuration createConfiguration() {
         Configuration configuration = new Configuration();
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
@@ -24,10 +24,10 @@ public class DBServiceHibernate {
         return configuration;
     }
 
-    private SessionFactory createSF(Configuration configuration) {
+    public static SessionFactory createSF() {
 
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(this.configuration.getProperties());
+        builder.applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = builder.build();
 
         return configuration.buildSessionFactory(serviceRegistry);
