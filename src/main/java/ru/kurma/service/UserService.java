@@ -9,17 +9,17 @@ import java.util.List;
 
 public class UserService {
 
-    private static UserService userService;
+    private static UserService instance;
 
     private UserService() {
 
     }
 
     public static UserService getInstance() {
-        if (userService == null) {
-            userService =  new UserService();
+        if (instance == null) {
+            instance =  new UserService();
         }
-        return userService;
+        return instance;
     }
 
     //private static UserDao userDao = new UserDaoImplJDBC();
