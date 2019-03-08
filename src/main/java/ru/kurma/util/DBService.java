@@ -1,15 +1,35 @@
 package ru.kurma.util;
 
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.postgresql.Driver;
 import ru.kurma.model.User;
 
-public class DBServiceHibernate {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBService {
+
+    private static String url = "jdbc:postgresql://localhost:5432/postgres";
+    private static String user = "postgres";
+    private static String password = "041014";
+    private static String className = "org.postgresql.Driver";
 
     private static Configuration configuration = createConfiguration();
 
+    public static Connection getConnection() {
+        try {
+            DriverManager.registerDriver((Driver) Class.forName(className).newInstance());
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     private static Configuration createConfiguration() {
         Configuration configuration = new Configuration();
@@ -33,9 +53,4 @@ public class DBServiceHibernate {
 
         return configuration.buildSessionFactory(serviceRegistry);
     }
-
-
-
-
-
 }

@@ -9,19 +9,33 @@ import java.util.List;
 
 public class UserService {
 
+    private UserService() {
+
+    }
+
+    public static UserService getInstance() {
+        UserService userService = null;
+
+        if (userService == null) {
+            userService =  new UserService();
+            return userService;
+        }
+        else return userService;
+    }
+
     //private static UserDao userDao = new UserDaoImplJDBC();
-    private static UserDao userDao = new UserDaoImplHibernate();
+    private UserDao userDao = new UserDaoImplHibernate();
 
 
-    public static void createNewUser(String firsName, String lastName) {
+    public void createNewUser(String firsName, String lastName) {
         userDao.createNewUser(firsName, lastName);
     }
 
-    public static User findUserById(Integer id) {
+    public User findUserById(Integer id) {
         return userDao.findUserById(id);
     }
 
-    public static List<User> findAllUsers() {
+    public List<User> findAllUsers() {
         try {
             return userDao.findAllUsers();
         } catch (SQLException e) {
@@ -30,11 +44,11 @@ public class UserService {
         }
     }
 
-    public static void updateUser(Integer id, String firtName, String lastName) {
+    public void updateUser(Integer id, String firtName, String lastName) {
         userDao.updateUser(id, firtName, lastName);
     }
 
-    public static void deleteUser(Integer id) {
+    public void deleteUser(Integer id) {
         userDao.deleteUser(id);
     }
 }

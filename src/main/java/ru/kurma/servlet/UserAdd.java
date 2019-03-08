@@ -12,6 +12,7 @@ import java.io.IOException;
 @WebServlet("/useradd")
 public class UserAdd extends HttpServlet {
 
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,9 +24,7 @@ public class UserAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-
-        UserService.createNewUser(firstName, lastName);
-
+        userService.createNewUser(firstName, lastName);
         response.sendRedirect("/users");
     }
 }

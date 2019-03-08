@@ -14,11 +14,12 @@ import java.util.List;
 @WebServlet("/users")
 public class Users extends HttpServlet {
 
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<User> users = UserService.findAllUsers();
+        List<User> users = userService.findAllUsers();
         request.setAttribute("users", users);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/users.jsp");
         requestDispatcher.forward(request, response);

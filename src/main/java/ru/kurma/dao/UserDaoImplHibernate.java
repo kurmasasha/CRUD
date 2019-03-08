@@ -4,13 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ru.kurma.model.User;
-import ru.kurma.util.DBServiceHibernate;
+import ru.kurma.util.DBService;
 
 import java.util.List;
 
 public class UserDaoImplHibernate implements UserDao {
 
-    private SessionFactory sessionFactory = DBServiceHibernate.createSF();
+    private SessionFactory sessionFactory = DBService.createSF();
 
     @Override
     public List<User> findAllUsers() {

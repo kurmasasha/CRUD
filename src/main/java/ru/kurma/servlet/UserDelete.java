@@ -10,10 +10,11 @@ import java.io.IOException;
 @WebServlet("/delete")
 public class UserDelete extends HttpServlet {
 
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService.deleteUser(Integer.parseInt(request.getParameter("id")));
+        userService.deleteUser(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect("/users");
     }
 }

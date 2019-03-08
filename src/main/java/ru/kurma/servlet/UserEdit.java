@@ -14,12 +14,13 @@ import java.io.IOException;
 public class UserEdit extends HttpServlet {
 
     private Integer findId;
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         findId = Integer.parseInt(request.getParameter("id"));
-        User user = UserService.findUserById(findId);
+        User user = userService.findUserById(findId);
         request.setAttribute("user", user);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
@@ -30,7 +31,7 @@ public class UserEdit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firsName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-        UserService.updateUser(findId, firsName, lastName);
+        userService.updateUser(findId, firsName, lastName);
 
         response.sendRedirect("/users");
     }
