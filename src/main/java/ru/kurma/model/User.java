@@ -3,7 +3,7 @@ package ru.kurma.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users", schema = "test")
+@Table(name = "users", schema = "public")
 public class User {
 
     @Id
