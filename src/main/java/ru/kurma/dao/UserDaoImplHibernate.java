@@ -2,6 +2,7 @@ package ru.kurma.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import ru.kurma.model.User;
 import ru.kurma.util.DBServiceHibernate;
 
@@ -13,8 +14,12 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public List<User> findAllUsers() {
+        List<User> users;
         Session session = sessionFactory.openSession();
-        return session.createQuery("From User").list();
+        users = session.createQuery("From User").list();
+        session.close();
+
+        return users;
     }
 
     @Override
@@ -24,6 +29,11 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public void createNewUser(String firstName, String lastName) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new User(firstName, lastName));
+        transaction.commit();
+        session.close();
 
     }
 
