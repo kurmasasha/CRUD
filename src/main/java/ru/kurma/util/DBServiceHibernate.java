@@ -17,7 +17,7 @@ public class DBServiceHibernate {
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres");
         configuration.setProperty("hibernate.connection.username", "postgres");
-        configuration.setProperty("hibernate.connection.password", "123456");
+        configuration.setProperty("hibernate.connection.password", "041014");
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "create-drop");
         //configuration.setProperty("hibernate.default_schema", "test");
