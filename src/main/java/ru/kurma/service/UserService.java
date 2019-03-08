@@ -44,8 +44,8 @@ public class UserService {
         }
     }
 
-    public void updateUser(Integer id, String firtName, String lastName) {
-        userDao.updateUser(id, firtName, lastName);
+    public void updateUser(Integer id, String firstName, String lastName) {
+        userDao.updateUser(id, firstName, lastName);
     }
 
     public void deleteUser(Integer id) {
