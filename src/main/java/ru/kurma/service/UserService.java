@@ -9,13 +9,13 @@ import java.util.List;
 
 public class UserService {
 
+    private static UserService userService;
+
     private UserService() {
 
     }
 
     public static UserService getInstance() {
-        UserService userService = null;
-
         if (userService == null) {
             userService =  new UserService();
             return userService;
