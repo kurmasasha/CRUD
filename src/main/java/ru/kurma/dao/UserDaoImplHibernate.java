@@ -24,7 +24,11 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User findUserById(Integer id) {
-        return null;
+        User user;
+        Session session = sessionFactory.openSession();
+        user = session.get(User.class, id);
+        session.close();
+        return user;
     }
 
     @Override
@@ -39,11 +43,22 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public void updateUser(Integer id, String firstName, String lastName) {
-
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = new User(firstName, lastName);
+        user.setId(id);
+        session.update(user);
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void deleteUser(Integer id) {
-
+        User user = findUserById(id);
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(user);
+        transaction.commit();
+        session.close();
     }
 }
