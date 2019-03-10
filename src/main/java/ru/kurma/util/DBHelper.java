@@ -1,10 +1,7 @@
 package ru.kurma.util;
 
 
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 import org.postgresql.Driver;
 import ru.kurma.model.User;
 
@@ -12,16 +9,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBService {
+public class DBHelper {
 
-    private static String url = "jdbc:postgresql://localhost:5432/postgres";
-    private static String user = "postgres";
-    private static String password = "041014";
-    private static String className = "org.postgresql.Driver";
+    private static DBHelper instance;
 
-    private static Configuration configuration = createConfiguration();
+    private DBHelper() {
+    }
 
-    public static Connection getConnection() {
+
+    private String url = "jdbc:postgresql://localhost:5432/postgres";
+    private String user = "postgres";
+    private String password = "041014";
+    private String className = "org.postgresql.Driver";
+
+    public static DBHelper getInstance() {
+        if (instance == null) {
+            instance =  new DBHelper();
+        }
+        return instance;
+    }
+
+    public Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName(className).newInstance());
             return DriverManager.getConnection(url, user, password);
@@ -31,7 +39,7 @@ public class DBService {
         }
     }
 
-    private static Configuration createConfiguration() {
+    public Configuration getConfiguration() {
         Configuration configuration = new Configuration();
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
@@ -43,14 +51,5 @@ public class DBService {
         //configuration.setProperty("hibernate.default_schema", "test");
         configuration.addAnnotatedClass(User.class);
         return configuration;
-    }
-
-    public static SessionFactory createSF() {
-
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        builder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = builder.build();
-
-        return configuration.buildSessionFactory(serviceRegistry);
     }
 }

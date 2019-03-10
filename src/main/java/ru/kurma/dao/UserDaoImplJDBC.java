@@ -1,7 +1,7 @@
 package ru.kurma.dao;
 
 import ru.kurma.model.User;
-import ru.kurma.util.DBService;
+import ru.kurma.util.DBHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +11,9 @@ import java.util.List;
 
 public class UserDaoImplJDBC implements UserDao{
 
-    private Connection connection = DBService.getConnection();
+    DBHelper dbHelper = DBHelper.getInstance();
+
+    private Connection connection = dbHelper.getConnection();
 
     @Override
     public User findUserById(Integer id) {
