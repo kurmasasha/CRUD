@@ -19,12 +19,21 @@ public class UserEdit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        findId = Integer.parseInt(request.getParameter("id"));
-        User user = userService.findUserById(findId);
-        request.setAttribute("user", user);
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
-        requestDispatcher.forward(request, response);
+        User user;
+        String idStr = request.getParameter("id");
+        Integer findId;
+        try {
+            findId = Integer.parseInt(idStr);
+            user = userService.findUserById(findId);
+            if (user == null) {
+                throw new IllegalArgumentException();
+            }
+            request.setAttribute("user", user);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
+            requestDispatcher.forward(request, response);
+        } catch (IllegalArgumentException e) {
+            response.sendRedirect("/users");
+        }
     }
 
     @Override

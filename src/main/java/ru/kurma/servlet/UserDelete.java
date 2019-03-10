@@ -2,7 +2,6 @@ package ru.kurma.servlet;
 
 import ru.kurma.service.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +22,9 @@ public class UserDelete extends HttpServlet {
             id = Integer.parseInt(idStr);
             userService.deleteUser(id);
             response.sendRedirect("/users");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
+        } catch (IllegalArgumentException e) {
+            response.sendRedirect("/users");
+        }
     }
 }
