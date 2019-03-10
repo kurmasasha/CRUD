@@ -1,18 +1,70 @@
 package ru.kurma.service;
 
-import ru.kurma.dao.UserDao;
-import ru.kurma.dao.UserDaoImplHibernate;
-import ru.kurma.dao.UserDaoImplJDBC;
+import ru.kurma.dao.*;
 import ru.kurma.model.User;
+
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 public class UserService {
 
+    private String separator = File.separator;
+
+    private String path = "src" + separator + "main" + separator + "resources" + separator + "UserDAO.properties";
+
     private static UserService instance;
+
+    private UserDaoFactory factory = createUserDaoFactory();
+
+    private UserDao userDao = factory.getUsedDao();
+
+    private
+
+    FileInputStream fileInputStream;
 
     private UserService() {
 
+    }
+
+    private UserDaoFactory createUserDaoFactory() {
+
+        String daoProperties = "";
+
+        Properties properties = new Properties();
+
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(456);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try (FileInputStream fileInputStream = new FileInputStream(path)){
+            properties.load(fileInputStream);
+            daoProperties = properties.getProperty("UserDao");
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        switch (daoProperties) {
+            case ("JDBC"):
+                return new UserDaoFactoryImplJDBC();
+            case ("Hibernate"):
+                return new UserDaoFactoryImplHibernate();
+                default:
+                    return new UserDaoFactoryImplJDBC();
+        }
     }
 
     public static UserService getInstance() {
@@ -21,10 +73,6 @@ public class UserService {
         }
         return instance;
     }
-
-    //private static UserDao userDao = new UserDaoImplJDBC();
-    private UserDao userDao = new UserDaoImplHibernate();
-
 
     public void createNewUser(String firsName, String lastName) {
         userDao.createNewUser(firsName, lastName);

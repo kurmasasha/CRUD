@@ -19,7 +19,7 @@ public class DBHelper {
 
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String user = "postgres";
-    private String password = "041014";
+    private String password = "123456";
     private String className = "org.postgresql.Driver";
 
     public static DBHelper getInstance() {
