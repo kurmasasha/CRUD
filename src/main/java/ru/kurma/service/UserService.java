@@ -12,7 +12,8 @@ public class UserService {
 
     private String separator = File.separator;
 
-    private String path = "src" + separator + "main" + separator + "resources" + separator + "UserDAO.properties";
+    private String path = "." + separator + "src" + separator + "main" + separator + "resources" + separator + "UserDAO.properties";
+
 
     private static UserService instance;
 
@@ -20,42 +21,37 @@ public class UserService {
 
     private UserDao userDao = factory.getUsedDao();
 
-    private
-
-    FileInputStream fileInputStream;
-
     private UserService() {
 
     }
 
     private UserDaoFactory createUserDaoFactory() {
 
-        String daoProperties = "";
+//        try (FileOutputStream fileOutputStream = new FileOutputStream("123")){
+//            fileOutputStream.write(3);
+//            fileOutputStream.flush();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
+        String daoProperties = null;
 
         Properties properties = new Properties();
 
-        File file = new File(path);
-        file.getParentFile().mkdirs();
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.write(456);
+        try (FileInputStream fis = new FileInputStream(path)){
+            //properties.load(fis);
+            properties.setProperty("userdao", "Hibernate");
+            daoProperties = properties.getProperty("userdao");
+            System.out.println(daoProperties);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        System.out.println();
 
-        try (FileInputStream fileInputStream = new FileInputStream(path)){
-            properties.load(fileInputStream);
-            daoProperties = properties.getProperty("UserDao");
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         switch (daoProperties) {
             case ("JDBC"):
