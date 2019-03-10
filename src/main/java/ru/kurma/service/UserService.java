@@ -2,6 +2,7 @@ package ru.kurma.service;
 
 import ru.kurma.dao.*;
 import ru.kurma.model.User;
+import ru.kurma.util.ReadPropertyDao;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -10,9 +11,6 @@ import java.util.Properties;
 
 public class UserService {
 
-    private String separator = File.separator;
-
-    private String path = "." + separator + "src" + separator + "main" + separator + "resources" + separator + "UserDAO.properties";
 
 
     private static UserService instance;
@@ -27,33 +25,9 @@ public class UserService {
 
     private UserDaoFactory createUserDaoFactory() {
 
-//        try (FileOutputStream fileOutputStream = new FileOutputStream("123")){
-//            fileOutputStream.write(3);
-//            fileOutputStream.flush();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        ReadPropertyDao readPropertyDao = new ReadPropertyDao();
 
-
-        String daoProperties = null;
-
-        Properties properties = new Properties();
-
-        try (FileInputStream fis = new FileInputStream(path)){
-            //properties.load(fis);
-            properties.setProperty("userdao", "Hibernate");
-            daoProperties = properties.getProperty("userdao");
-            System.out.println(daoProperties);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println();
-
-
-
-        switch (daoProperties) {
+        switch (readPropertyDao.getPropierty()) {
             case ("JDBC"):
                 return new UserDaoFactoryImplJDBC();
             case ("Hibernate"):
