@@ -26,11 +26,12 @@ public class UserEdit extends HttpServlet {
             findId = Integer.parseInt(idStr);
             user = userService.findUserById(findId);
             if (user == null) {
-                throw new IllegalArgumentException();
+                response.sendRedirect("/users");
+            }else {
+                request.setAttribute("user", user);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
+                requestDispatcher.forward(request, response);
             }
-            request.setAttribute("user", user);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
-            requestDispatcher.forward(request, response);
         } catch (IllegalArgumentException e) {
             response.sendRedirect("/users");
         }
