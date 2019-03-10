@@ -1,40 +1,23 @@
 package ru.kurma.service;
 
-import ru.kurma.dao.*;
+import ru.kurma.dao.UserDao;
+import ru.kurma.factory.DaoFactoryImpl;
 import ru.kurma.model.User;
-import ru.kurma.util.ReadPropertyDao;
 
-import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
+
 
 public class UserService {
 
-
-
     private static UserService instance;
 
-    private UserDaoFactory factory = createUserDaoFactory();
 
-    private UserDao userDao = factory.getUsedDao();
+    private UserDao userDao = new DaoFactoryImpl().getUsedDao();
+
 
     private UserService() {
 
-    }
-
-    private UserDaoFactory createUserDaoFactory() {
-
-        ReadPropertyDao readPropertyDao = new ReadPropertyDao();
-
-        switch (readPropertyDao.getPropierty()) {
-            case ("JDBC"):
-                return new UserDaoFactoryImplJDBC();
-            case ("Hibernate"):
-                return new UserDaoFactoryImplHibernate();
-                default:
-                    return new UserDaoFactoryImplJDBC();
-        }
     }
 
     public static UserService getInstance() {

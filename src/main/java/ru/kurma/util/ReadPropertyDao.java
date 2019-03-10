@@ -9,7 +9,6 @@ public class ReadPropertyDao {
     private Properties properties = new Properties();
 
     public String getPropierty() {
-
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("UserDAO.properties")){
             properties.load(inputStream);
         } catch (IOException e) {
