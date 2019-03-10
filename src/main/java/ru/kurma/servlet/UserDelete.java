@@ -1,6 +1,8 @@
 package ru.kurma.servlet;
 
 import ru.kurma.service.UserService;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,17 @@ public class UserDelete extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        userService.deleteUser(Integer.parseInt(request.getParameter("id")));
-        response.sendRedirect("/users");
+        String idStr = request.getParameter("id");
+        Integer id;
+
+        try {
+            id = Integer.parseInt(idStr);
+            userService.deleteUser(id);
+            response.sendRedirect("/users");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
