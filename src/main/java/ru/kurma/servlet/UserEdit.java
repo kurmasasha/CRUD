@@ -27,7 +27,7 @@ public class UserEdit extends HttpServlet {
             user = userService.findUserById(findId);
             if (user == null) {
                 throw new IllegalArgumentException();
-            }
+            }//
             request.setAttribute("user", user);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
             requestDispatcher.forward(request, response);
