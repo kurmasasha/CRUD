@@ -21,7 +21,6 @@ public class UserEdit extends HttpServlet {
 
         User user;
         String idStr = request.getParameter("id");
-        Integer findId;
         try {
             findId = Integer.parseInt(idStr);
             user = userService.findUserById(findId);
