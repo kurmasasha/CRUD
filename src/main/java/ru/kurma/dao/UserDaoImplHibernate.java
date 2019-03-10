@@ -45,21 +45,21 @@ public class UserDaoImplHibernate implements UserDao {
     }
 
     @Override
-    public void createNewUser(String firstName, String lastName) {
+    public void createNewUser(String firstName, String lastName, String password) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(new User(firstName, lastName));
+        session.save(new User(firstName, lastName, password));
         transaction.commit();
         session.close();
 
     }
 
     @Override
-    public void updateUser(Integer id, String firstName, String lastName) {
+    public void updateUser(Integer id, User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        User user = new User(firstName, lastName);
-        user.setId(id);
+        //User user = new User(firstName, lastName);
+        //user.setId(id);
         session.update(user);
         transaction.commit();
         session.close();

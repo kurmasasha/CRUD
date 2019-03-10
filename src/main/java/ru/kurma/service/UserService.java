@@ -27,8 +27,8 @@ public class UserService {
         return instance;
     }
 
-    public void createNewUser(String firsName, String lastName) {
-        userDao.createNewUser(firsName, lastName);
+    public void createNewUser(String firsName, String lastName, String password) {
+        userDao.createNewUser(firsName, lastName, password);
     }
 
     public User findUserById(Integer id) {
@@ -44,8 +44,8 @@ public class UserService {
         }
     }
 
-    public void updateUser(Integer id, String firstName, String lastName) {
-        userDao.updateUser(id, firstName, lastName);
+    public void updateUser(Integer id, User user) {
+        userDao.updateUser(id, user);
     }
 
     public void deleteUser(Integer id) {

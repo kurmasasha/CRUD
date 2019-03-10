@@ -24,7 +24,8 @@ public class UserAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-        userService.createNewUser(firstName, lastName);
+        String password = "";
+        userService.createNewUser(firstName, lastName, password);
         response.sendRedirect("/users");
     }
 }

@@ -9,8 +9,8 @@ public interface UserDao {
 
     List<User> findAllUsers() throws SQLException;
     User findUserById(Integer id);
-    void createNewUser(String firstName, String lastName);
-    void updateUser(Integer id, String firstName, String lastName);
+    void createNewUser(String firstName, String lastName, String password);
+    void updateUser(Integer id, User user);
     void deleteUser(Integer id);
 
 }

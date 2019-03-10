@@ -27,7 +27,8 @@ public class UserDaoImplJDBC implements UserDao{
 
             String firstName = resultSet.getString("firstname");
             String lastName = resultSet.getString("lastname");
-            user = new User(firstName, lastName);
+            String password = resultSet.getString("password");
+            user = new User(firstName, lastName, password);
             user.setId(id);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +52,8 @@ public class UserDaoImplJDBC implements UserDao{
                 Integer id = resultSet.getInt("id");
                 String firstName = resultSet.getString("firstname");
                 String lastName = resultSet.getString("lastname");
-                User user = new User(firstName, lastName);
+                String password = resultSet.getString("password");
+                User user = new User(firstName, lastName, password);
                 user.setId(id);
                 users.add(user);
             }
@@ -64,12 +66,13 @@ public class UserDaoImplJDBC implements UserDao{
     }
 
     @Override
-    public void createNewUser(String firstName, String lastName) {
+    public void createNewUser(String firstName, String lastName, String password) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
-                    ("INSERT  INTO " + "postgres.public.users(firstname, lastname) VALUES (?,?)");
+                    ("INSERT  INTO " + "postgres.public.users(firstname, lastname, password) VALUES (?,?,?)");
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
+            preparedStatement.setString(3, password);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,16 +81,14 @@ public class UserDaoImplJDBC implements UserDao{
     }
 
     @Override
-    public void updateUser(Integer id, String firstName, String lastName) {
-
-        User user = findUserById(id);
+    public void updateUser(Integer id, User user) {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE postgres.public.users SET " +
                     "firstName = ?, lastname = ? WHERE id = ?");
-                    preparedStatement.setString(1, firstName);
-                    preparedStatement.setString(2, lastName);
-                    preparedStatement.setInt(3, id);
+                    preparedStatement.setString(1, user.getFirstName());
+                    preparedStatement.setString(2, user.getLastName());
+                    preparedStatement.setInt(3, user.getId());
                     preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -47,7 +47,7 @@ public class DBHelper {
         configuration.setProperty("hibernate.connection.username", "postgres");
         configuration.setProperty("hibernate.connection.password", "123456");
         configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
         //configuration.setProperty("hibernate.default_schema", "test");
         configuration.addAnnotatedClass(User.class);
         return configuration;

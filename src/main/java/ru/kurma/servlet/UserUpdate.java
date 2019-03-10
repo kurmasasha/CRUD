@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/edit")
-public class UserEdit extends HttpServlet {
+public class UserUpdate extends HttpServlet {
 
     private Integer findId;
     private UserService userService = UserService.getInstance();
+    private User user;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User user;
         String idStr = request.getParameter("id");
         try {
             findId = Integer.parseInt(idStr);
@@ -38,9 +38,9 @@ public class UserEdit extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String firsName = request.getParameter("FirstName");
-        String lastName = request.getParameter("LastName");
-        userService.updateUser(findId, firsName, lastName);
+        user.setFirstName(request.getParameter("FirstName"));
+        user.setLastName(request.getParameter("LastName"));
+        userService.updateUser(findId, user);
 
         response.sendRedirect("/users");
     }
