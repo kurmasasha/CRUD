@@ -24,18 +24,27 @@ public class UserDaoImplJDBC implements UserDao{
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-
-            String firstName = resultSet.getString("firstname");
-            String lastName = resultSet.getString("lastname");
-            String password = resultSet.getString("password");
-            user = new User(firstName, lastName, password);
-            user.setId(id);
+            user = complitUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
 
+    @Override
+    public User findUserByLogin(String login) {
+        User user = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM postgres.public.users WHERE login = ?");
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            user = complitUser(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
     @Override
     public List<User> findAllUsers() {
@@ -49,12 +58,7 @@ public class UserDaoImplJDBC implements UserDao{
 
         try {
             while (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                String firstName = resultSet.getString("firstname");
-                String lastName = resultSet.getString("lastname");
-                String password = resultSet.getString("password");
-                User user = new User(firstName, lastName, password);
-                user.setId(id);
+                User user = complitUser(resultSet);
                 users.add(user);
             }
             return users;
@@ -104,5 +108,21 @@ public class UserDaoImplJDBC implements UserDao{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private User complitUser(ResultSet resultSet) {
+        User user = null;
+        try {
+            Integer id = resultSet.getInt("id");
+            String firstName = resultSet.getString("firstname");
+            String lastName = resultSet.getString("lastname");
+            String password = resultSet.getString("password");
+            user = new User(firstName, lastName, password);
+            user.setId(id);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

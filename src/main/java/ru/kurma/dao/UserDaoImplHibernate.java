@@ -44,6 +44,12 @@ public class UserDaoImplHibernate implements UserDao {
         return user;
     }
 
+
+    @Override
+    public User findUserByLogin(String login) {
+        return null;
+    }
+
     @Override
     public void createNewUser(String firstName, String lastName, String password) {
         Session session = sessionFactory.openSession();
