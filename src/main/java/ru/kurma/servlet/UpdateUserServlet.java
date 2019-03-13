@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/edit")
-public class UserUpdate extends HttpServlet {
+public class UpdateUserServlet extends HttpServlet {
 
     private Integer findId;
     private UserService userService = UserService.getInstance();
@@ -40,6 +40,7 @@ public class UserUpdate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         user.setFirstName(request.getParameter("FirstName"));
         user.setLastName(request.getParameter("LastName"));
+        user.setRole(request.getParameter("Role"));
         userService.updateUser(findId, user);
 
         response.sendRedirect("/users");

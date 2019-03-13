@@ -5,23 +5,21 @@
     <title>UserEdit</title>
 </head>
 <body>
-<form method="post" action="/edit" accept-charset="UTF-8">
+<form method="post" action="/admin/edit" accept-charset="UTF-8">
     <table>
         <tr>
-            <td>
-                <h1>Внесите изменения</h1>
-            </td>
+            <td>Текущее имя </td>
         </tr>
         <tr>
-            <td><label for="FirstName">Текущее Имя</label></td>
+            <td><label for="FirstName">Имя</label></td>
             <td><input id="FirstName" type="text" name="FirstName" value="${user.firstName}"></td>
         </tr>
         <tr>
-            <td><label for="LastName">Текущая Фамилия</label></td>
+            <td><label for="LastName">Фамилия</label></td>
             <td><input id="LastName" type="text" name="LastName" value="${user.lastName}"></td>
         </tr>
         <tr>
-            <td><label for="Role">Текущая Роль</label></td>
+            <td><label for="Role">Роль</label></td>
             <td><select name="Role" id="Role">
                 <option value="admin">admin</option>
                 <option value="user">user</option>

@@ -5,16 +5,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.ExceptionMapperStandardImpl;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
+import org.postgresql.util.PSQLException;
 import ru.kurma.model.User;
-import ru.kurma.util.DBHelper;
+import ru.kurma.util.DataBasesConnector;
 
 import java.util.List;
 
 public class UserDaoImplHibernate implements UserDao {
 
-    private DBHelper dbHelper = DBHelper.getInstance();
-    private Configuration configuration = dbHelper.getConfiguration();
+    private DataBasesConnector dataBasesConnector = DataBasesConnector.getInstance();
+    private Configuration configuration = dataBasesConnector.getConfiguration();
     private SessionFactory sessionFactory = createSF();
 
     private SessionFactory createSF() {
@@ -47,16 +50,26 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User findUserByLogin(String login) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("From User where login = :login");
+        query.setParameter("login", login);
+        List<User> list = query.list();
+        if (list.size() == 0) {
+            return null;
+        }
+        else return list.get(0);
+
     }
 
     @Override
-    public void createNewUser(String firstName, String lastName, String password) {
+    public void createNewUser(String firstName, String lastName, String login, String password, String role){
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(new User(firstName, lastName, password));
+        session.save(new User(firstName, lastName, login, password, role));
         transaction.commit();
         session.close();
+
+
 
     }
 
@@ -64,8 +77,6 @@ public class UserDaoImplHibernate implements UserDao {
     public void updateUser(Integer id, User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        //User user = new User(firstName, lastName);
-        //user.setId(id);
         session.update(user);
         transaction.commit();
         session.close();

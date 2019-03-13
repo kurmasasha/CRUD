@@ -9,11 +9,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBHelper {
+public class DataBasesConnector {
 
-    private static DBHelper instance;
+    private static DataBasesConnector instance;
 
-    private DBHelper() {
+    private DataBasesConnector() {
     }
 
 
@@ -22,9 +22,9 @@ public class DBHelper {
     private String password = "123456";
     private String className = "org.postgresql.Driver";
 
-    public static DBHelper getInstance() {
+    public static DataBasesConnector getInstance() {
         if (instance == null) {
-            instance =  new DBHelper();
+            instance =  new DataBasesConnector();
         }
         return instance;
     }
@@ -47,7 +47,7 @@ public class DBHelper {
         configuration.setProperty("hibernate.connection.username", "postgres");
         configuration.setProperty("hibernate.connection.password", "123456");
         configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "update");
         //configuration.setProperty("hibernate.default_schema", "test");
         configuration.addAnnotatedClass(User.class);
         return configuration;

@@ -17,6 +17,9 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "login", unique = true)
+    private String login;
+
     @Column(name = "password")
     private String password;
 
@@ -26,10 +29,12 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String password) {
+    public User(String firstName, String lastName, String login, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.login = login;
         this.password = password;
+        this.role = role;
     }
 
 
@@ -57,6 +62,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -79,6 +92,7 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';

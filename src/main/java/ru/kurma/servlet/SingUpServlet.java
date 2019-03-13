@@ -7,10 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/useradd")
-public class UserAdd extends HttpServlet {
+@WebServlet("/signup")
+public class SingUpServlet extends HttpServlet {
 
     private UserService userService = UserService.getInstance();
 
@@ -21,11 +22,20 @@ public class UserAdd extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-        String password = "";
-        userService.createNewUser(firstName, lastName, password);
-        response.sendRedirect("/users");
+        String login = request.getParameter("Login");
+        String password = request.getParameter("Password");
+        String role = "user";
+        try {
+            userService.createNewUser(firstName, lastName, login, password, role);
+        } catch (Exception e) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/errorsignup.jsp");
+            dispatcher.forward(request, response);
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("login", login);
+        response.sendRedirect("/home");
     }
 }

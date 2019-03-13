@@ -1,7 +1,7 @@
 package ru.kurma.dao;
 
 import ru.kurma.model.User;
-import ru.kurma.util.DBHelper;
+import ru.kurma.util.DataBasesConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +11,9 @@ import java.util.List;
 
 public class UserDaoImplJDBC implements UserDao{
 
-    DBHelper dbHelper = DBHelper.getInstance();
+    DataBasesConnector dataBasesConnector = DataBasesConnector.getInstance();
 
-    private Connection connection = dbHelper.getConnection();
+    private Connection connection = dataBasesConnector.getConnection();
 
     @Override
     public User findUserById(Integer id) {
@@ -70,13 +70,15 @@ public class UserDaoImplJDBC implements UserDao{
     }
 
     @Override
-    public void createNewUser(String firstName, String lastName, String password) {
+    public void createNewUser(String firstName, String lastName, String login, String password, String role) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
-                    ("INSERT  INTO " + "postgres.public.users(firstname, lastname, password) VALUES (?,?,?)");
+                    ("INSERT  INTO " + "postgres.public.users(firstname, lastname, login, password, role) VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
-            preparedStatement.setString(3, password);
+            preparedStatement.setString(3, login);
+            preparedStatement.setString(4, password);
+            preparedStatement.setString(5, role);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,13 +118,15 @@ public class UserDaoImplJDBC implements UserDao{
             Integer id = resultSet.getInt("id");
             String firstName = resultSet.getString("firstname");
             String lastName = resultSet.getString("lastname");
+            String login = resultSet.getString("login");
             String password = resultSet.getString("password");
-            user = new User(firstName, lastName, password);
+            String role = resultSet.getString("role");
+            user = new User(firstName, lastName, login, password, role);
             user.setId(id);
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return null;
     }
 }

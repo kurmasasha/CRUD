@@ -1,5 +1,8 @@
 package ru.kurma.service;
 
+import org.hibernate.Session;
+import org.hibernate.internal.ExceptionMapperStandardImpl;
+import org.postgresql.util.PSQLException;
 import ru.kurma.dao.UserDao;
 import ru.kurma.factory.DaoFactoryImpl;
 import ru.kurma.model.User;
@@ -27,12 +30,17 @@ public class UserService {
         return instance;
     }
 
-    public void createNewUser(String firsName, String lastName, String password) {
-        userDao.createNewUser(firsName, lastName, password);
+    public void createNewUser(String firsName, String lastName, String login, String password, String role) throws Exception {
+        userDao.createNewUser(firsName, lastName, login, password, role);
     }
 
     public User findUserById(Integer id) {
         return userDao.findUserById(id);
+    }
+
+    public User findUserByLogin(String login) {
+        return userDao.findUserByLogin(login);
+
     }
 
     public List<User> findAllUsers() {

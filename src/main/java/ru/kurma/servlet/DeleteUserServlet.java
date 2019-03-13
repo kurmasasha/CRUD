@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/delete")
-public class UserDelete extends HttpServlet {
+public class DeleteUserServlet extends HttpServlet {
 
     private UserService userService = UserService.getInstance();
 

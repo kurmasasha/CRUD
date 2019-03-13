@@ -6,17 +6,22 @@
     <title>Users</title>
 </head>
 <body>
+<h1>Все пользователи</h1>
     <table>
         <tr>
             <td>ID</td>
             <td>Имя</td>
             <td>Фамилия</td>
+            <td>Логин</td>
+            <td>Роль</td>
         </tr>
         <c:forEach items="${users}" var="user">
             <tr>
                 <td>${user.id}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
+                <td>${user.login}</td>
+                <td>${user.role}</td>
                 <td>
                     <a href="/edit?id=${user.id}">Редактировать</a>
                 </td>
@@ -28,8 +33,9 @@
     </table>
 <div>
     <form method="get">
-        <a href="/useradd">Добавить</a>
+        <a href="/home">Домой</a>
     </form>
+
 </div>
 </body>
 </html>
