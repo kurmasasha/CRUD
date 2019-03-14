@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/users/*", "/edit/*", "/delete/*"})
 public class RoleFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 

@@ -36,6 +36,7 @@ public class SingUpServlet extends HttpServlet {
         }
         HttpSession session = request.getSession();
         session.setAttribute("login", login);
+        session.setAttribute("role", role);
         response.sendRedirect("/home");
     }
 }

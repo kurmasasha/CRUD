@@ -87,7 +87,7 @@ public class UserDaoImplJDBC implements UserDao{
     }
 
     @Override
-    public void updateUser(Integer id, User user) {
+    public void updateUser(User user) {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE postgres.public.users SET " +

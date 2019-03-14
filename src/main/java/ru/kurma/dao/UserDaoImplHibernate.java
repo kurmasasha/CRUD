@@ -5,13 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.internal.ExceptionMapperStandardImpl;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
-import org.postgresql.util.PSQLException;
 import ru.kurma.model.User;
 import ru.kurma.util.DataBasesConnector;
-
 import java.util.List;
 
 public class UserDaoImplHibernate implements UserDao {
@@ -34,7 +31,6 @@ public class UserDaoImplHibernate implements UserDao {
         Session session = sessionFactory.openSession();
         users = session.createQuery("From User").list();
         session.close();
-
         return users;
     }
 
@@ -58,7 +54,6 @@ public class UserDaoImplHibernate implements UserDao {
             return null;
         }
         else return list.get(0);
-
     }
 
     @Override
@@ -68,13 +63,10 @@ public class UserDaoImplHibernate implements UserDao {
         session.save(new User(firstName, lastName, login, password, role));
         transaction.commit();
         session.close();
-
-
-
     }
 
     @Override
-    public void updateUser(Integer id, User user) {
+    public void updateUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(user);

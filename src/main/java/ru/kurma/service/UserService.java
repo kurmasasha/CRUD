@@ -1,12 +1,8 @@
 package ru.kurma.service;
 
-import org.hibernate.Session;
-import org.hibernate.internal.ExceptionMapperStandardImpl;
-import org.postgresql.util.PSQLException;
 import ru.kurma.dao.UserDao;
 import ru.kurma.factory.DaoFactoryImpl;
 import ru.kurma.model.User;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -52,8 +48,8 @@ public class UserService {
         }
     }
 
-    public void updateUser(Integer id, User user) {
-        userDao.updateUser(id, user);
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
     public void deleteUser(Integer id) {

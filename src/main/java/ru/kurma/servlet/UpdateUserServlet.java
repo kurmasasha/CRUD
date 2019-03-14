@@ -13,8 +13,7 @@ import java.io.IOException;
 @WebServlet("/edit")
 public class UpdateUserServlet extends HttpServlet {
 
-    private Integer findId;
-    private UserService userService = UserService.getInstance();
+    private final UserService userService = UserService.getInstance();
     private User user;
 
     @Override
@@ -22,8 +21,7 @@ public class UpdateUserServlet extends HttpServlet {
 
         String idStr = request.getParameter("id");
         try {
-            findId = Integer.parseInt(idStr);
-            user = userService.findUserById(findId);
+            user = userService.findUserById(Integer.parseInt(idStr));
             if (user == null) {
                 response.sendRedirect("/users");
             }else {
@@ -41,7 +39,7 @@ public class UpdateUserServlet extends HttpServlet {
         user.setFirstName(request.getParameter("FirstName"));
         user.setLastName(request.getParameter("LastName"));
         user.setRole(request.getParameter("Role"));
-        userService.updateUser(findId, user);
+        userService.updateUser(user);
 
         response.sendRedirect("/users");
     }

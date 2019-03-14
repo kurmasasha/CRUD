@@ -13,14 +13,16 @@ public class DataBasesConnector {
 
     private static DataBasesConnector instance;
 
+    private final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private final String USER = "postgres";
+    private final String PASSWORD = "123456";
+    private final String CLASSNAME = "org.postgresql.Driver";
+
     private DataBasesConnector() {
     }
 
 
-    private String url = "jdbc:postgresql://localhost:5432/postgres";
-    private String user = "postgres";
-    private String password = "123456";
-    private String className = "org.postgresql.Driver";
+
 
     public static DataBasesConnector getInstance() {
         if (instance == null) {
@@ -31,8 +33,8 @@ public class DataBasesConnector {
 
     public Connection getConnection() {
         try {
-            DriverManager.registerDriver((Driver) Class.forName(className).newInstance());
-            return DriverManager.getConnection(url, user, password);
+            DriverManager.registerDriver((Driver) Class.forName(CLASSNAME).newInstance());
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -48,7 +50,6 @@ public class DataBasesConnector {
         configuration.setProperty("hibernate.connection.password", "123456");
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
-        //configuration.setProperty("hibernate.default_schema", "test");
         configuration.addAnnotatedClass(User.class);
         return configuration;
     }
