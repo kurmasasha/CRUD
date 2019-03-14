@@ -22,7 +22,7 @@ public class SignInServlet extends HttpServlet {
         if (session.getAttribute("login") != null) {
             response.sendRedirect("/home");
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/signin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/signin.jsp");
             dispatcher.forward(request, response);
         }
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/users")
+@WebServlet("/admin/users")
 public class ViewAllUsersServlet extends HttpServlet {
 
     private UserService userService = UserService.getInstance();
@@ -21,7 +21,7 @@ public class ViewAllUsersServlet extends HttpServlet {
 
         List<User> users = userService.findAllUsers();
         request.setAttribute("users", users);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/users.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/jsp/users.jsp");
         requestDispatcher.forward(request, response);
     }
 }

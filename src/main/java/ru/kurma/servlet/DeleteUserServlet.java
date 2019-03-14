@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delete")
+@WebServlet("/admin/delete")
 public class DeleteUserServlet extends HttpServlet {
 
     private UserService userService = UserService.getInstance();
@@ -21,10 +21,10 @@ public class DeleteUserServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
             userService.deleteUser(id);
-            response.sendRedirect("/users");
+            response.sendRedirect("/admin/users");
 
         } catch (IllegalArgumentException e) {
-            response.sendRedirect("/users");
+            response.sendRedirect("/admin/users");
         }
     }
 }

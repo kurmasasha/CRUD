@@ -19,8 +19,12 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         String role = (String) session.getAttribute("role");
         req.setAttribute("role", role);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/home.jsp");
-        dispatcher.forward(req, resp);
-
+        if (role.equals("admin")) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/adminhome.jsp");
+            dispatcher.forward(req, resp);
+        }else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/home.jsp");
+            dispatcher.forward(req, resp);
+        }
     }
 }

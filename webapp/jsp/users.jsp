@@ -23,10 +23,10 @@
                 <td>${user.login}</td>
                 <td>${user.role}</td>
                 <td>
-                    <a href="/edit?id=${user.id}">Редактировать</a>
+                    <a href="/admin/edit?id=${user.id}">Редактировать</a>
                 </td>
                 <td>
-                    <a href="/delete?id=${user.id}">Удалить</a>
+                    <a href="/admin/delete?id=${user.id}">Удалить</a>
                 </td>
             </tr>
         </c:forEach>

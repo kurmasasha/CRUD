@@ -5,7 +5,7 @@
     <title>UserEdit</title>
 </head>
 <body>
-<form method="post" action="/edit" accept-charset="UTF-8">
+<form method="post" action="/admin/edit" accept-charset="UTF-8">
     <table>
         <tr>
             <td>

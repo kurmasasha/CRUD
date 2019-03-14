@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/edit")
+@WebServlet("/admin/edit")
 public class UpdateUserServlet extends HttpServlet {
 
     private final UserService userService = UserService.getInstance();
@@ -23,14 +23,14 @@ public class UpdateUserServlet extends HttpServlet {
         try {
             user = userService.findUserById(Integer.parseInt(idStr));
             if (user == null) {
-                response.sendRedirect("/users");
+                response.sendRedirect("/admin/users");
             }else {
                 request.setAttribute("user", user);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/useredit.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/jsp/useredit.jsp");
                 requestDispatcher.forward(request, response);
             }
         } catch (IllegalArgumentException e) {
-            response.sendRedirect("/users");
+            response.sendRedirect("/admin/users");
         }
     }
 
@@ -41,6 +41,6 @@ public class UpdateUserServlet extends HttpServlet {
         user.setRole(request.getParameter("Role"));
         userService.updateUser(user);
 
-        response.sendRedirect("/users");
+        response.sendRedirect("/admin/users");
     }
 }

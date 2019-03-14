@@ -17,7 +17,7 @@ public class SingUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/signup.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/jsp/signup.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -31,7 +31,7 @@ public class SingUpServlet extends HttpServlet {
         try {
             userService.createNewUser(firstName, lastName, login, password, role);
         } catch (Exception e) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/errorsignup.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/errorsignup.jsp");
             dispatcher.forward(request, response);
         }
         HttpSession session = request.getSession();

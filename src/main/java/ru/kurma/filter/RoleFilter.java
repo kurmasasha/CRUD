@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/users/*", "/edit/*", "/delete/*"})
+@WebFilter("/admin/*")
 public class RoleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
