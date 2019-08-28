@@ -21,9 +21,6 @@ public class DataBasesConnector {
     private DataBasesConnector() {
     }
 
-
-
-
     public static DataBasesConnector getInstance() {
         if (instance == null) {
             instance =  new DataBasesConnector();
