@@ -11,7 +11,7 @@ public class DaoFactoryImpl implements DaoFactory {
 
         ReadPropertyDao readPropertyDao = new ReadPropertyDao();
 
-        switch (readPropertyDao.getPropierty()) {
+        switch (readPropertyDao.getProperty()) {
             case ("JDBC"):
                 return new UserDaoImplJDBC();
             case ("Hibernate"):
